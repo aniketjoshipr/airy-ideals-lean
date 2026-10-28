@@ -21,33 +21,33 @@ set `A`, which is the Lean type `σ`.
 | completed Rees polynomial module `M̂_A^ħ` | `reesPoly σ K ⊆ K[x_A]⟦ħ⟧` |
 | `ħ`, `ħxₐ`, `ħ∂ₐ` | `hbar`, `hx a`, `hd a` |
 | canonical ideal `I_can` | `Ican σ K` |
-| Airy ideal (Def. 2.16) | `IsAiryIdeal I` |
-| stable transvection `φ` (Def. 2.12) | `StablePotential.transvection` |
+| Airy ideal (Def. 2.26) | `IsAiryIdeal I` |
+| stable transvection `φ` (Def. 2.21) | `StablePotential.transvection` |
 | twisted module `^φM` (Def. 2.3) | `Twisted φ M` |
-| module of exponential type `M̂_A^ħ Z` (Def. 2.11) | `StablePotential.expModule` |
+| module of exponential type `M̂_A^ħ Z` (Def. 2.20) | `StablePotential.expModule` |
 | partition function `Z` | `StablePotential.Z = exp(-S)` |
 
 ## Main results
 
 | Paper | Lean | File |
 |---|---|---|
-| eq. (2.4) `[Fₘ, Fₙ] ⊆ F_{m+n-2}` | `bernstein_comm_mem` | `Weyl.lean` |
-| eq. (2.5) `[𝒟̂, 𝒟̂] ⊆ ħ²𝒟̂` | `rees_comm` | `Construction.lean` |
-| eq. (2.9) `Ann(1) = I_can` | `ann_one_iff` | `TwistedModule.lean` |
-| Lemma 2.13 (transvections are automorphisms) | `StablePotential.transvection` | `Transvection.lean` |
-| Lemma 2.14 `𝒟̂/φ(I_can) ≅ ^φM̂` | `StablePotential.quotientEquivTwisted` | `TwistedModule.lean` |
-| Lemma 2.15 `𝒟̂/φ(I_can) ≅ M̂·Z` | `StablePotential.quotientEquivExp` | `TwistedModule.lean` |
-| **Theorem 2.17** `I = φ(I_can)` | `IsAiryIdeal.exists_transvection`, `IsAiryIdeal.exists_potential` | `Transvection.lean`, `MainTheorem.lean` |
-| **Theorem 2.17** `𝒟̂/I ≅ ^φM̂` | `IsAiryIdeal.quotientEquivTwisted` | `TwistedModule.lean` |
-| Lemma 2.18 | `exists_poly_add` | `Decomposition.lean` |
-| Lemmas 2.19, 2.20 | `barOp_mem`, `eq_span_barOp` | `AiryIdeal.lean` |
-| Lemma 2.21 (no polynomials in `I`) | `polyOp_mem_eq_zero` | `AiryIdeal.lean` |
-| **Corollary 2.22** (existence and uniqueness of `Z`) | `IsAiryIdeal.existsUnique_partitionFunction`, `IsAiryIdeal.partitionFunction_eq_exp`, `IsAiryIdeal.quotientEquivExp` | `MainTheorem.lean`, `TwistedModule.lean` |
-| Lemmas 2.23, 2.24 (converse) | `StablePotential.isAiryIdeal`, `isAiryIdeal_iff` | `Construction.lean` |
-| Lemma 2.25 (change of generators) | `isAiryIdeal_of_matrix` | `Construction.lean` |
-| Remark after Def. 2.16 (non-example) | `not_isAiryIdeal_example` | `Construction.lean` |
+| the commutator estimate `[Fₘ, Fₙ] ⊆ F_{m+n-2}` | `bernstein_comm_mem` | `Weyl.lean` |
+| the estimate after Def. 2.12 `[𝒟̂, 𝒟̂] ⊆ ħ²𝒟̂` | `rees_comm` | `Construction.lean` |
+| the annihilator of `1`, Section 2.3 `Ann(1) = I_can` | `ann_one_iff` | `TwistedModule.lean` |
+| Lemma 2.23 (transvections are automorphisms) | `StablePotential.transvection` | `Transvection.lean` |
+| Lemma 2.24 `𝒟̂/φ(I_can) ≅ ^φM̂` | `StablePotential.quotientEquivTwisted` | `TwistedModule.lean` |
+| Lemma 2.25 `𝒟̂/φ(I_can) ≅ M̂·Z` | `StablePotential.quotientEquivExp` | `TwistedModule.lean` |
+| **Theorem 2.28** `I = φ(I_can)` | `IsAiryIdeal.exists_transvection`, `IsAiryIdeal.exists_potential` | `Transvection.lean`, `MainTheorem.lean` |
+| **Theorem 2.28** `𝒟̂/I ≅ ^φM̂` | `IsAiryIdeal.quotientEquivTwisted` | `TwistedModule.lean` |
+| Lemma 2.29 | `exists_poly_add` | `Decomposition.lean` |
+| Lemmas 2.30, 2.31 | `barOp_mem`, `eq_span_barOp` | `AiryIdeal.lean` |
+| Lemma 2.32 (no polynomials in `I`) | `polyOp_mem_eq_zero` | `AiryIdeal.lean` |
+| **Corollary 2.33** (existence and uniqueness of `Z`) | `IsAiryIdeal.existsUnique_partitionFunction`, `IsAiryIdeal.partitionFunction_eq_exp`, `IsAiryIdeal.quotientEquivExp` | `MainTheorem.lean`, `TwistedModule.lean` |
+| Lemmas 2.36, 2.37 (converse) | `StablePotential.isAiryIdeal`, `isAiryIdeal_iff` | `Construction.lean` |
+| Lemma 2.39 (change of generators) | `isAiryIdeal_of_matrix` | `Construction.lean` |
+| Remark after Def. 2.26 (non-example) | `not_isAiryIdeal_example` | `Construction.lean` |
 
-`isAiryIdeal_iff` packages Theorem 2.17 and Lemma 2.24 into one statement: *a left ideal of
+`isAiryIdeal_iff` packages Theorem 2.28 and Lemma 2.24 into one statement: *a left ideal of
 `𝒟̂_A^ħ` is Airy if and only if it is the image of `I_can` under a stable transvection.*
 
 ## Differences from the paper
@@ -59,14 +59,14 @@ set `A`, which is the Lean type `σ`.
   and `∂ₐ` (faithful in characteristic zero), not the free algebra modulo relations. The Rees
   algebra is a subalgebra of `End(K[x_A])⟦ħ⟧`, and we use its faithful action on `K[x_A]⟦ħ⟧`
   throughout.
-* **Proof of Lemma 2.21.** The paper conjugates the ideal by truncated transvections `φ_N`. We
+* **Proof of Lemma 2.32.** The paper conjugates the ideal by truncated transvections `φ_N`. We
   run the same induction on `ħ`-adic valuations, but in the "differential equations" picture:
   we let the generators act on the exponential `exp(-S)`. Transvections are constructed
   afterwards.
 * **Uniqueness of `Z`.** We prove a slightly stronger statement. `Z` is unique among *all*
   `Z' ∈ K[x_A]⟦ħ⟧` with `Z'|_{x=0} = 1` and `I·Z' = 0`, not only among exponentials.
-* **Only stable transvections.** Definition 2.12 allows `q^{(1)}, q^{(2)} ≠ 0`. We construct the
-  automorphism only in the stable case (`q^{(1)} = q^{(2)} = 0`), which is all Theorem 2.17
+* **Only stable transvections.** Definition 2.21 allows `q^{(1)}, q^{(2)} ≠ 0`. We construct the
+  automorphism only in the stable case (`q^{(1)} = q^{(2)} = 0`), which is all Theorem 2.28
   needs. With `q^{(1)} ≠ 0` the map does not extend to the completion. For `q^{(1)} = c·x₁` we get
   `φ(ħ∂₁) = ħ∂₁ + c`, so the image of `∑ₘ ħᵐ∂₁ᵐ ∈ 𝒟̂_A^ħ` would need the constant `∑ₘ cᵐ`. This
   does not affect the paper's main results.
@@ -93,9 +93,9 @@ lake build
 | `Weyl.lean` | Weyl algebra, Bernstein filtration, normal ordering, commutator estimate |
 | `Rees.lean` | `Op⟦ħ⟧` acting on `K[x]⟦ħ⟧`, `𝒟̂_A^ħ`, `M̂_A^ħ`, faithfulness |
 | `Exp.lean` | `exp` of a power series and the chain rule |
-| `Decomposition.lean` | Lemma 2.18 |
-| `AiryIdeal.lean` | Definition 2.16, Lemmas 2.19–2.21 |
-| `MainTheorem.lean` | Theorem 2.17 (generator form), Corollary 2.22 |
-| `Transvection.lean` | stable transvections as automorphisms, Theorem 2.17 |
-| `TwistedModule.lean` | `Ann(1) = I_can`, twisted modules, Lemmas 2.14, 2.15 |
-| `Construction.lean` | eq. (2.5), Lemmas 2.23–2.25, non-example |
+| `Decomposition.lean` | Lemma 2.29 |
+| `AiryIdeal.lean` | Definition 2.26, Lemmas 2.30–2.32 |
+| `MainTheorem.lean` | Theorem 2.28 (generator form), Corollary 2.33 |
+| `Transvection.lean` | stable transvections as automorphisms, Theorem 2.28 |
+| `TwistedModule.lean` | `Ann(1) = I_can`, twisted modules, Lemmas 2.24, 2.25 |
+| `Construction.lean` | the estimate after Def. 2.12, Lemmas 2.36–2.39, non-example |

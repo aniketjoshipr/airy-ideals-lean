@@ -1,7 +1,7 @@
 import AiryIdeals.MainTheorem
 
 /-!
-# Transvections (Section 2.4) and the twisted-module form of Theorem 2.17
+# Transvections (Section 2.4) and the twisted-module form of Theorem 2.28
 
 Let `S` be a stable potential and `Z = exp(-S)`. Following the paper, the **transvection**
 `φ_S` is conjugation by the exponential: `φ_S(P) = e^{-S} ∘ P ∘ e^{S}`. It fixes `ħ` and
@@ -16,16 +16,16 @@ that the conjugate of an element of `𝒟̂_A^ħ` is again in `𝒟̂_A^ħ`:
 Multiplicativity, bijectivity and uniqueness all follow from the faithfulness of the action of
 `𝒟̂_A^ħ` on `K[x_A]⟦ħ⟧`.
 
-*Remark.* Definition 2.12 of the paper also allows non-stable transvections with `q^{(1)} ≠ 0`.
+*Remark.* Definition 2.21 of the paper also allows non-stable transvections with `q^{(1)} ≠ 0`.
 These do not extend to the completion. If `q^{(1)} = c·x₁` then `φ(ħ∂₁) = ħ∂₁ + c`, and the
 image of `∑ₘ ħᵐ ∂₁ᵐ ∈ 𝒟̂_A^ħ` would have `ħ⁰` coefficient `∑ₘ cᵐ`, which does not make sense.
 The paper's main results only use stable transvections, and those are what we construct here.
 
 Main results:
 * `StablePotential.transvection`: the automorphism `φ_S`;
-* `IsAiryIdeal.exists_transvection` (**Theorem 2.17**): `I = φ_S(I_can)` for a stable
+* `IsAiryIdeal.exists_transvection` (**Theorem 2.28**): `I = φ_S(I_can)` for a stable
   transvection `φ_S`;
-* `IsAiryIdeal.quotientEquivTwisted` (**Theorem 2.17**, second part): `𝒟̂_A^ħ / I` is
+* `IsAiryIdeal.quotientEquivTwisted` (**Theorem 2.28**, second part): `𝒟̂_A^ħ / I` is
   isomorphic to the twisted module `^φ M̂_A^ħ`.
 -/
 
@@ -335,7 +335,7 @@ lemma mem_ideal_iff (P : ReesWeyl σ K) : P ∈ S.ideal ↔ S.transvection.symm 
 
 end StablePotential
 
-/-- **Theorem 2.17.** An Airy ideal is the image `I = φ(I_can)` of the canonical ideal under a
+/-- **Theorem 2.28.** An Airy ideal is the image `I = φ(I_can)` of the canonical ideal under a
 stable transvection `φ`, that is, an automorphism of `𝒟̂_A^ħ` with `φ(ħ) = ħ`, `φ(ħxₐ) = ħxₐ`
 and `φ(ħ∂ₐ) = ħ∂ₐ + ∑_{n≥2} ħⁿ ∂ₐ q^{(n+1)}`. -/
 theorem IsAiryIdeal.exists_transvection {I : LeftIdeal σ K} (hI : IsAiryIdeal I) :

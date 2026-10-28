@@ -3,7 +3,7 @@ import Mathlib
 /-!
 # A polynomial Poincaré lemma
 
-The proofs of Lemma 2.20 and Theorem 2.17 in the paper use Poincaré's lemma: a closed
+The proofs of Lemma 2.31 and Theorem 2.28 in the paper use Poincaré's lemma: a closed
 polynomial one-form `∑ₐ pₐ dxₐ` is exact, `pₐ = ∂ₐ q`, and the primitive `q` can be taken
 to have degree at most one more than the `pₐ` and no constant term.
 

@@ -201,7 +201,7 @@ lemma act_C_dOp (a : σ) (f : PolySeries σ K) : act (C (dOp a)) f = dSer a f :=
 
 variable (σ K)
 
-/-- The **completed Rees Weyl algebra** `𝒟̂_A^ħ = ∏ₙ ħⁿ Fₙ 𝒟_A` (Definition 2.6). Its elements
+/-- The **completed Rees Weyl algebra** `𝒟̂_A^ħ = ∏ₙ ħⁿ Fₙ 𝒟_A` (Definition 2.12). Its elements
 are power series `∑ ħⁿ Pₙ` with `Pₙ` in the `n`-th piece of the Bernstein filtration. -/
 noncomputable def rees : Subalgebra K (OpSeries σ K) where
   carrier := {P | ∀ n, coeff n P ∈ bernstein σ K n}
@@ -269,7 +269,7 @@ lemma hbar_pow_mul_injective (k : ℕ) {P Q : ReesWeyl σ K} (h : hbar ^ k * P =
 variable (σ K)
 
 /-- The **completed Rees polynomial module** `M̂_A^ħ = ∏ₙ ħⁿ Fₙ M_A`: power series
-`∑ ħⁿ fₙ` with `fₙ` a polynomial of degree `≤ n` (Definition 2.10). -/
+`∑ ħⁿ fₙ` with `fₙ` a polynomial of degree `≤ n` (Definition 2.18). -/
 noncomputable def reesPoly : Submodule (ReesWeyl σ K) (PolySeries σ K) where
   carrier := {f | ∀ n, (coeff n f).totalDegree ≤ n}
   zero_mem' n := by simp

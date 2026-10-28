@@ -17,7 +17,7 @@ get associativity, and the action on the polynomial module, for free.
 
 The main results of this file are:
 * `mulOp_mem_bernstein`: multiplication by a polynomial of degree `≤ n` lies in `F n`;
-* `bernstein_decomp`: the "normal ordering" step used in Lemma 2.18. Every `T ∈ F (n+1)`
+* `bernstein_decomp`: the "normal ordering" step used in Lemma 2.29. Every `T ∈ F (n+1)`
   can be written as `T = g + ∑ₐ dₐ ∂ₐ`, with `g` a polynomial of degree `≤ n+1` and
   `dₐ ∈ F n`;
 * `bernstein_degree`: operators in `F n` raise the degree of polynomials by at most `n`.
@@ -291,7 +291,7 @@ end AiryIdeals
 
 namespace AiryIdeals
 
-/-! ### Commutators lower the Bernstein degree by two (eq. (2.4)) -/
+/-! ### Commutators lower the Bernstein degree by two (the commutator estimate) -/
 
 variable {σ K : Type*} [Field K]
 
@@ -362,7 +362,7 @@ lemma gens_comm_bernstein {n : ℕ} {S T : Op σ K} (hS : S ∈ gens σ K)
       have := add_mem h₁ h₂
       convert this using 1; noncomm_ring
 
-/-- **Eq. (2.4).** `[F (m+1), F (n+1)] ⊆ F (m+n)`, i.e. commutators lower the Bernstein
+/-- **Commutator estimate.** `[F (m+1), F (n+1)] ⊆ F (m+n)`, i.e. commutators lower the Bernstein
 degree by two. -/
 theorem bernstein_comm_mem {m n : ℕ} {S T : Op σ K} (hS : S ∈ bernstein σ K (m + 1))
     (hT : T ∈ bernstein σ K (n + 1)) : S * T - T * S ∈ bernstein σ K (m + n) := by
