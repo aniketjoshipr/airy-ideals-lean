@@ -6,3 +6,5 @@ import AiryIdeals.Decomposition
 import AiryIdeals.AiryIdeal
 import AiryIdeals.MainTheorem
 import AiryIdeals.Transvection
+import AiryIdeals.TwistedModule
+import AiryIdeals.Construction

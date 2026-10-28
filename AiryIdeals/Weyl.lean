@@ -288,3 +288,109 @@ theorem bernstein_degree {n : ℕ} {T : Op σ K} (hT : T ∈ bernstein σ K n)
     exact key _ (ih hf)
 
 end AiryIdeals
+
+namespace AiryIdeals
+
+/-! ### Commutators lower the Bernstein degree by two (eq. (2.4)) -/
+
+variable {σ K : Type*} [Field K]
+
+lemma mulOp_C_mem_bernstein_zero (r : K) : mulOp (C r : MvPolynomial σ K) ∈ bernstein σ K 0 :=
+  mulOp_mem_bernstein (by simp)
+
+/-- Commutators of two generators are scalars. -/
+lemma gens_comm_mem {S T : Op σ K} (hS : S ∈ gens σ K) (hT : T ∈ gens σ K) :
+    S * T - T * S ∈ bernstein σ K 0 := by
+  classical
+  induction hS using Submodule.span_induction with
+  | zero => simp
+  | add _ _ _ _ h₁ h₂ =>
+    have : _ := add_mem h₁ h₂
+    convert this using 1; noncomm_ring
+  | smul r _ _ h =>
+    have : _ := Submodule.smul_mem _ r h
+    convert this using 1; simp [smul_sub]
+  | mem S hS =>
+    induction hT using Submodule.span_induction with
+    | zero => simp
+    | add _ _ _ _ h₁ h₂ =>
+      have : _ := add_mem h₁ h₂
+      convert this using 1; noncomm_ring
+    | smul r _ _ h =>
+      have : _ := Submodule.smul_mem _ r h
+      convert this using 1; simp [smul_sub]
+    | mem T hT =>
+      have hxx : ∀ a b : σ, xOp a * xOp b - xOp b * xOp a = (0 : Op σ K) := fun a b => by
+        simp [xOp, mulOp_comm]
+      have hdd : ∀ a b : σ, dOp a * dOp b - dOp b * dOp a = (0 : Op σ K) := fun a b => by
+        refine LinearMap.ext fun f => ?_
+        simp [pderiv_comm]
+      have hdx : ∀ a b : σ, dOp a * xOp b - xOp b * dOp a ∈ bernstein σ K 0 := fun a b => by
+        rw [xOp, dOp_mul_mulOp, add_sub_cancel_right, pderiv_X]
+        by_cases h : a = b
+        · subst h; simpa using mulOp_C_mem_bernstein_zero (σ := σ) (1 : K)
+        · simp [Pi.single_apply, Ne.symm h]
+      rcases hS with (hS | ⟨a, rfl⟩) | ⟨a, rfl⟩ <;>
+        rcases hT with (hT | ⟨b, rfl⟩) | ⟨b, rfl⟩
+      all_goals first
+        | (rw [Set.mem_singleton_iff] at hS; subst hS; simp)
+        | (rw [Set.mem_singleton_iff] at hT; subst hT; simp)
+        | (rw [hxx]; exact zero_mem _)
+        | (rw [hdd]; exact zero_mem _)
+        | exact hdx a b
+        | (rw [← neg_sub]; exact neg_mem (hdx b a))
+
+/-- `[gens, F (n+1)] ⊆ F n`. -/
+lemma gens_comm_bernstein {n : ℕ} {S T : Op σ K} (hS : S ∈ gens σ K)
+    (hT : T ∈ bernstein σ K (n + 1)) : S * T - T * S ∈ bernstein σ K n := by
+  induction n generalizing T with
+  | zero =>
+    rw [bernstein, zero_add, pow_one] at hT
+    exact gens_comm_mem hS hT
+  | succ n ih =>
+    rw [bernstein, pow_succ'] at hT
+    induction hT using Submodule.mul_induction_on' with
+    | mem_mul_mem g hg T hT =>
+      have h1 := bernstein_mul_mem (gens_comm_mem hS hg) hT
+      have h2 := bernstein_mul_mem (gens_le_bernstein le_rfl hg) (ih hT)
+      rw [zero_add] at h1
+      rw [add_comm] at h2
+      have := add_mem h1 h2
+      convert this using 1
+      noncomm_ring
+    | add _ _ _ _ h₁ h₂ =>
+      have := add_mem h₁ h₂
+      convert this using 1; noncomm_ring
+
+/-- **Eq. (2.4).** `[F (m+1), F (n+1)] ⊆ F (m+n)`, i.e. commutators lower the Bernstein
+degree by two. -/
+theorem bernstein_comm_mem {m n : ℕ} {S T : Op σ K} (hS : S ∈ bernstein σ K (m + 1))
+    (hT : T ∈ bernstein σ K (n + 1)) : S * T - T * S ∈ bernstein σ K (m + n) := by
+  induction m generalizing S with
+  | zero =>
+    rw [bernstein, zero_add, pow_one] at hS
+    rw [zero_add]
+    exact gens_comm_bernstein hS hT
+  | succ m ih =>
+    rw [bernstein, pow_succ'] at hS
+    induction hS using Submodule.mul_induction_on' with
+    | mem_mul_mem g hg S hS =>
+      have h1 := bernstein_mul_mem (gens_le_bernstein le_rfl hg) (ih hS)
+      have h2 := bernstein_mul_mem (gens_comm_bernstein hg hT) hS
+      rw [show 1 + (m + n) = m + 1 + n by omega] at h1
+      rw [show n + (m + 1) = m + 1 + n by omega] at h2
+      have := add_mem h1 h2
+      convert this using 1
+      noncomm_ring
+    | add _ _ _ _ h₁ h₂ =>
+      have := add_mem h₁ h₂
+      convert this using 1; noncomm_ring
+
+/-- Elements of `F 0` are central. -/
+lemma bernstein_zero_comm {S : Op σ K} (hS : S ∈ bernstein σ K 0) (T : Op σ K) :
+    S * T = T * S := by
+  rw [bernstein, pow_zero, Submodule.mem_one] at hS
+  obtain ⟨r, rfl⟩ := hS
+  exact Algebra.commutes r T
+
+end AiryIdeals
